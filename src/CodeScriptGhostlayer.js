@@ -1,11 +1,11 @@
 // ==UserScript==
-// @name         GhostChatAI
+// @name         Ghostlayer
 // @namespace    https://github.com/DREwX-code
-// @version      1.0.2
+// @version      1.0.3
 // @description  Lightweight floating AI chat panel that works on any webpage. Free and no signup required. Uses Pollinations.ai for text and image generation, supports multiple conversations, reasoning levels, response styles, image tools, and a privacy-focused Ghost Mode.
 // @author       Dℝ∃wX
 // @match        *://*/*
-// @icon         https://github.com/DREwX-code/ghostchatai/blob/main/assets/icon/Icon2_GhostChat_Script.png?raw=true
+// @icon         https://github.com/DREwX-code/Ghostlayer/blob/main/assets/icon/Icon2_Ghostlayer_Script.png?raw=true
 // @grant        GM_getValue
 // @grant        GM_setValue
 // @run-at       document-end
@@ -34,7 +34,7 @@ limitations under the License.
 */
 
 /*
-GhostChatAI
+Ghostlayer
 --------------------------------
 
 AI Backend:
@@ -52,7 +52,7 @@ Source: https://github.com/denilsonsa/denilsonsa.github.io/blob/master/icons/Gre
 (function () {
     'use strict';
 
-    class GhostChat {
+    class Ghostlayer {
         constructor() {
             this.REASONING_LEVELS = ['auto', 'minimal', 'low', 'medium', 'high', 'ultra'];
             this.STYLE_OPTIONS = [
@@ -65,7 +65,7 @@ Source: https://github.com/denilsonsa/denilsonsa.github.io/blob/master/icons/Gre
                 { id: 'geek', label: 'Geek', desc: 'Tech jargon and references' },
                 { id: 'persuasive', label: 'Persuasive', desc: 'Structured and convincing' }
             ];
-            this.DEFAULT_GREETING = 'Hello! I am GhostChat. How can I help you today?';
+            this.DEFAULT_GREETING = 'Hello! I am Ghostlayer. How can I help you today?';
             this.host = null;
             this.shadow = null;
             this.elements = {};
@@ -107,7 +107,7 @@ Source: https://github.com/denilsonsa/denilsonsa.github.io/blob/master/icons/Gre
         }
 
         loadSavedReasoning() {
-            const savedReasoning = GM_getValue('ghostchat_reasoning', 'low');
+            const savedReasoning = GM_getValue('Ghostlayer_reasoning', 'low');
             if (this.REASONING_LEVELS.includes(savedReasoning)) {
                 this.state.reasoningEffort = savedReasoning;
                 this.elements.modelSelect.value = savedReasoning;
@@ -1029,7 +1029,7 @@ Source: https://github.com/denilsonsa/denilsonsa.github.io/blob/master/icons/Gre
                         <div class="gc-header-left">
                             <div class="gc-title">
                                 <div class="gc-status-dot"></div>
-                                <span>GhostChat AI</span>
+                                <span>Ghostlayer AI</span>
                                 <button class="gc-title-toggle" id="gc-btn-toggle-extra" title="More">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <polyline points="9 18 15 12 9 6"></polyline>
@@ -1086,7 +1086,7 @@ Source: https://github.com/denilsonsa/denilsonsa.github.io/blob/master/icons/Gre
                 </button>
             </div>
                 <div class="gc-settings" id="gc-settings-panel">
-                    <div class="gc-settings-title">Choose how GhostChat should respond.</div>
+                    <div class="gc-settings-title">Choose how Ghostlayer should respond.</div>
                     <div class="gc-settings-list" id="gc-settings-list"></div>
                 </div>
 
@@ -1096,7 +1096,7 @@ Source: https://github.com/denilsonsa/denilsonsa.github.io/blob/master/icons/Gre
                     <div class="gc-info-grid">
                         <div class="gc-info-card variant-a">
                             <h4>Version</h4>
-                            <p>1.0.2<br>Last updated: 2025-12-26</p>
+                            <p>1.0.3<br>Last updated: 2025-12-26</p>
                         </div>
 
                         <div class="gc-info-card variant-b">
@@ -1155,7 +1155,7 @@ Source: https://github.com/denilsonsa/denilsonsa.github.io/blob/master/icons/Gre
                         <div class="gc-info-card variant-c">
                             <h4>About</h4>
                             <p>
-                                GhostChatAI is a modern, in-browser floating chat panel.
+                                Ghostlayer is a modern, in-browser floating chat panel.
                                 AI responses are served through the open-source Pollinations endpoints.
                             </p>
                             <div class="gc-info-links">
@@ -1375,7 +1375,7 @@ Source: https://github.com/denilsonsa/denilsonsa.github.io/blob/master/icons/Gre
         }
 
         loadSavedStyle() {
-            const savedStyle = GM_getValue('ghostchat_style', 'default');
+            const savedStyle = GM_getValue('Ghostlayer_style', 'default');
             if (this.STYLE_OPTIONS.some(option => option.id === savedStyle)) {
                 this.state.responseStyle = savedStyle;
             }
@@ -1385,7 +1385,7 @@ Source: https://github.com/denilsonsa/denilsonsa.github.io/blob/master/icons/Gre
         setResponseStyle(styleId) {
             if (!this.STYLE_OPTIONS.some(option => option.id === styleId)) return;
             this.state.responseStyle = styleId;
-            GM_setValue('ghostchat_style', styleId);
+            GM_setValue('Ghostlayer_style', styleId);
             this.applyActiveStyle();
         }
 
@@ -1432,7 +1432,7 @@ Source: https://github.com/denilsonsa/denilsonsa.github.io/blob/master/icons/Gre
         changeReasoningEffort(level) {
             if (this.REASONING_LEVELS.includes(level)) {
                 this.state.reasoningEffort = level;
-                GM_setValue('ghostchat_reasoning', level);
+                GM_setValue('Ghostlayer_reasoning', level);
                 this.elements.modelSelect.value = level;
             }
         }
@@ -1465,7 +1465,7 @@ Source: https://github.com/denilsonsa/denilsonsa.github.io/blob/master/icons/Gre
 
             } catch (error) {
                 this.appendMessageToChat(requestChatId, 'assistant', '⚠️ Error generating image.');
-                console.error('GhostChat Image Error:', error);
+                console.error('Ghostlayer Image Error:', error);
             } finally {
                 this.setLoading(false, requestChatId);
             }
@@ -1570,20 +1570,20 @@ Source: https://github.com/denilsonsa/denilsonsa.github.io/blob/master/icons/Gre
 
         setActiveChatId(chatId) {
             if (this.state.isGhostMode) return;
-            GM_setValue('ghostchat_active_chat_id', chatId);
+            GM_setValue('Ghostlayer_active_chat_id', chatId);
         }
 
         loadHistory() {
-            const saved = GM_getValue('ghostchat_history', '');
+            const saved = GM_getValue('Ghostlayer_history', '');
             if (saved) {
                 try {
                     this.history = JSON.parse(saved);
-                } catch (e) { console.error('GhostChat: Corrupt history', e); }
+                } catch (e) { console.error('Ghostlayer: Corrupt history', e); }
             }
         }
 
         restoreActiveChat() {
-            const activeId = GM_getValue('ghostchat_active_chat_id', '');
+            const activeId = GM_getValue('Ghostlayer_active_chat_id', '');
             let chat = null;
 
             if (activeId) {
@@ -1624,7 +1624,7 @@ Source: https://github.com/denilsonsa/denilsonsa.github.io/blob/master/icons/Gre
             this.history.unshift(chatData);
 
 
-            GM_setValue('ghostchat_history', JSON.stringify(this.history));
+            GM_setValue('Ghostlayer_history', JSON.stringify(this.history));
             this.setActiveChatId(this.currentChatId);
         }
 
@@ -1656,7 +1656,7 @@ Source: https://github.com/denilsonsa/denilsonsa.github.io/blob/master/icons/Gre
         clearAllHistory() {
             this.showConfirm('Are you sure you want to delete ALL history? This cannot be undone.', () => {
                 this.history = [];
-                GM_setValue('ghostchat_history', '');
+                GM_setValue('Ghostlayer_history', '');
                 this.setActiveChatId('');
                 this.resetHistorySearch();
                 this.startNewChat();
@@ -1667,7 +1667,7 @@ Source: https://github.com/denilsonsa/denilsonsa.github.io/blob/master/icons/Gre
             if (e) e.stopPropagation();
             this.showConfirm('Delete this conversation?', () => {
                 this.history = this.history.filter(h => h.id !== chatId);
-                GM_setValue('ghostchat_history', JSON.stringify(this.history));
+                GM_setValue('Ghostlayer_history', JSON.stringify(this.history));
 
                 // If deleting active chat, clear it
                 if (chatId === this.currentChatId) this.startNewChat();
@@ -1708,7 +1708,7 @@ Source: https://github.com/denilsonsa/denilsonsa.github.io/blob/master/icons/Gre
                 if (chatId === this.currentChatId) {
                     this.state.manualTitle = cleaned;
                 }
-                GM_setValue('ghostchat_history', JSON.stringify(this.history));
+                GM_setValue('Ghostlayer_history', JSON.stringify(this.history));
             };
 
             const enforceMax = () => {
@@ -2616,7 +2616,7 @@ Source: https://github.com/denilsonsa/denilsonsa.github.io/blob/master/icons/Gre
                             downloadBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg><span>Download</span>`;
                             downloadBtn.onclick = (e) => {
                                 e.stopPropagation();
-                                this.downloadImage(imageUrl, 'ghostchat-image.png');
+                                this.downloadImage(imageUrl, 'Ghostlayer-image.png');
                             };
                             actions.appendChild(downloadBtn);
                         }
@@ -2761,7 +2761,7 @@ Source: https://github.com/denilsonsa/denilsonsa.github.io/blob/master/icons/Gre
                 currentMessage.currentVersion = currentMessage.versions.length - 1;
                 currentMessage.content = currentMessage.versions[currentMessage.currentVersion];
                 currentMessage.isLoading = false;
-                console.error('GhostChat Regenerate Error:', error);
+                console.error('Ghostlayer Regenerate Error:', error);
                 if (requestChatId === this.currentChatId) {
                     this.renderMessages(true);
                 }
@@ -2796,7 +2796,7 @@ Source: https://github.com/denilsonsa/denilsonsa.github.io/blob/master/icons/Gre
 
                 const a = document.createElement('a');
                 a.href = blobUrl;
-                a.download = filename || 'ghostchat-image.png';
+                a.download = filename || 'Ghostlayer-image.png';
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
@@ -2841,7 +2841,7 @@ Source: https://github.com/denilsonsa/denilsonsa.github.io/blob/master/icons/Gre
 
             this.history = this.history.filter(h => h.id !== chatId);
             this.history.unshift(chat);
-            GM_setValue('ghostchat_history', JSON.stringify(this.history));
+            GM_setValue('Ghostlayer_history', JSON.stringify(this.history));
             if (this.state.isHistoryOpen) this.renderHistoryList();
         }
 
@@ -2878,7 +2878,7 @@ Source: https://github.com/denilsonsa/denilsonsa.github.io/blob/master/icons/Gre
                         downloadBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg><span>Download</span>`;
                         downloadBtn.onclick = (e) => {
                             e.stopPropagation();
-                            this.downloadImage(imageUrl, 'ghostchat-image.png');
+                            this.downloadImage(imageUrl, 'Ghostlayer-image.png');
                         };
                         actions.appendChild(downloadBtn);
                     }
@@ -2966,7 +2966,7 @@ Source: https://github.com/denilsonsa/denilsonsa.github.io/blob/master/icons/Gre
                 this.appendMessageToChat(requestChatId, 'assistant', response);
             } catch (error) {
                 this.appendMessageToChat(requestChatId, 'assistant', '⚠️ Error: Could not reach the ghost in the machine.');
-                console.error('GhostChat Error:', error);
+                console.error('Ghostlayer Error:', error);
             } finally {
                 this.setLoading(false, requestChatId);
             }
@@ -3025,7 +3025,7 @@ Source: https://github.com/denilsonsa/denilsonsa.github.io/blob/master/icons/Gre
                     if (response.status === 429) {
                         if (retryCount < 2) {
                             const delay = 2000 * Math.pow(2, retryCount);
-                            console.warn(`GhostChat: Router rate limit, retrying in ${delay}ms...`);
+                            console.warn(`Ghostlayer: Router rate limit, retrying in ${delay}ms...`);
                             await new Promise(r => setTimeout(r, delay));
                             return makeRequest(retryCount + 1);
                         }
@@ -3042,7 +3042,7 @@ Source: https://github.com/denilsonsa/denilsonsa.github.io/blob/master/icons/Gre
                     }
                     return 'low';
                 } catch (e) {
-                    console.warn('GhostChat: Router failed, defaulting to low.', e);
+                    console.warn('Ghostlayer: Router failed, defaulting to low.', e);
                     return 'low';
                 }
             };
@@ -3057,7 +3057,7 @@ Source: https://github.com/denilsonsa/denilsonsa.github.io/blob/master/icons/Gre
             const recentHistory = sourceHistory.slice(-6);
             const reasoningLevel = reasoningOverride || this.state.reasoningEffort;
             const stylePrompt = this.getStylePrompt();
-            const baseSystemPrompt = `You are GhostChat, a helpful and concise AI assistant living in a browser overlay.${stylePrompt ? `\n\nStyle:\n${stylePrompt}` : ''}`;
+            const baseSystemPrompt = `You are Ghostlayer, a helpful and concise AI assistant living in a browser overlay.${stylePrompt ? `\n\nStyle:\n${stylePrompt}` : ''}`;
             const toolSpec = `Tools (function-call format):
                 - generate_image: [tool:generate_image prompt="..."]
                 - show_image: [tool:show_image query="..." alt="..."] or [tool:show_image url="..." alt="..."]
@@ -3142,7 +3142,7 @@ Source: https://github.com/denilsonsa/denilsonsa.github.io/blob/master/icons/Gre
                         if (retryCount < 2) {
                             // Exponential backoff: 2s, 4s
                             const delay = 2000 * Math.pow(2, retryCount);
-                            console.warn(`GhostChat: Rate limit hit, retrying in ${delay}ms...`);
+                            console.warn(`Ghostlayer: Rate limit hit, retrying in ${delay}ms...`);
                             await new Promise(r => setTimeout(r, delay));
                             return makeRequest(retryCount + 1);
                         }
@@ -3173,11 +3173,11 @@ Source: https://github.com/denilsonsa/denilsonsa.github.io/blob/master/icons/Gre
         }
     }
 
-    // Initialize GhostChatAI !
+    // Initialize Ghostlayer !
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => new GhostChat());
+        document.addEventListener('DOMContentLoaded', () => new Ghostlayer());
     } else {
-        new GhostChat();
+        new Ghostlayer();
     }
 
 })();

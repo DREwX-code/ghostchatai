@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         GhostChatAI
 // @namespace    https://github.com/DREwX-code
-// @version      1.0.0
+// @version      1.0.1
 // @description  Lightweight floating AI chat panel that works on any webpage. Free and no signup required. Uses Pollinations.ai for text and image generation, supports multiple conversations, reasoning levels, response styles, image tools, and a privacy-focused Ghost Mode.
-// @author       DREWX
+// @author       Dℝ∃wX
 // @match        *://*/*
 // @icon         https://github.com/DREwX-code/ghostchatai/blob/main/assets/icon/Icon2_GhostChat_Script.png?raw=true
 // @grant        GM_getValue
@@ -12,6 +12,7 @@
 // @license      Apache-2.0
 // @copyright    2025 Dℝ∃wX
 // @noframes
+// @tag          productivity
 // ==/UserScript==
 
 /*
@@ -1028,7 +1029,7 @@ Source: https://github.com/denilsonsa/denilsonsa.github.io/blob/master/icons/Gre
                     <div class="gc-info-grid">
                         <div class="gc-info-card variant-a">
                             <h4>Version</h4>
-                            <p>1.0.0<br>Last updated: 2025-12-23</p>
+                            <p>1.0.0<br>Last updated: 2025-12-26</p>
                         </div>
 
                         <div class="gc-info-card variant-b">
@@ -1087,7 +1088,7 @@ Source: https://github.com/denilsonsa/denilsonsa.github.io/blob/master/icons/Gre
                         <div class="gc-info-card variant-c">
                             <h4>About</h4>
                             <p>
-                                GhostChat is a modern, in-browser floating chat panel.
+                                GhostChatAI is a modern, in-browser floating chat panel.
                                 AI responses are served through the open-source Pollinations endpoints.
                             </p>
                             <div class="gc-info-links">

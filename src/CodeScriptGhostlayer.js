@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name         Ghostlayer
 // @namespace    https://github.com/DREwX-code
-// @version      1.0.3
+// @version      1.0.4
 // @description  Lightweight floating AI chat panel that works on any webpage. Free and no signup required. Uses Pollinations.ai for text and image generation, supports multiple conversations, reasoning levels, response styles, image tools, and a privacy-focused Ghost Mode.
 // @author       Dℝ∃wX
 // @match        *://*/*
-// @icon         https://github.com/DREwX-code/Ghostlayer/blob/main/assets/icon/Icon2_Ghostlayer_Script.png?raw=true
+// @icon         https://raw.githubusercontent.com/DREwX-code/ghostlayer/refs/heads/main/assets/icon/Icon2_Ghostlayer_Script.png
 // @grant        GM_getValue
 // @grant        GM_setValue
 // @run-at       document-end
@@ -184,7 +184,7 @@ Source: https://github.com/denilsonsa/denilsonsa.github.io/blob/master/icons/Gre
                     position: absolute;
                     bottom: 72px;
                     right: 0;
-                    width: 420px;
+                    width: 425px;
                     height: 500px;
                     max-height: 80vh;
                     background: var(--gc-bg);
@@ -1096,7 +1096,7 @@ Source: https://github.com/denilsonsa/denilsonsa.github.io/blob/master/icons/Gre
                     <div class="gc-info-grid">
                         <div class="gc-info-card variant-a">
                             <h4>Version</h4>
-                            <p>1.0.3<br>Last updated: 2025-12-26</p>
+                            <p>1.0.4<br>Last updated: 2025-12-26</p>
                         </div>
 
                         <div class="gc-info-card variant-b">

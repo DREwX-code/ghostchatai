@@ -1,6 +1,6 @@
 # NeuraVeil Userscript
 
-NeuraVeil is an AI chat panel, lightweight and modern, that integrates naturally on any webpage.
+[NeuraVeil](https://greasyfork.org/en/scripts/560252-neuraveil-ai-chat-in-your-browser) is an AI chat panel, lightweight and modern, that integrates naturally on any webpage.
 
 It uses the open (no-signup) APIs of [Pollinations.ai](https://github.com/pollinations/pollinations) for text and image generation, in order to provide immediate access to an AI directly during your browsing.
 
@@ -27,30 +27,35 @@ Everything works without page reloads.
 ## Main features
 
 ### Interface
+
 - Discreet bubble in the bottom-right corner
 - Sidebar mode (side panel) on the right
 - Instant open and close
 - Quick close with the Escape key
 
 ### Conversations
+
 - **Unlimited** saved conversations
 - Load, rename, or delete a conversation
 - Clear the entire history
 - Start a new chat at any time
 
 ### Reasoning and tone
+
 - Persistent reasoning levels:
   Auto, Minimal, Low, Medium, High, Ultra
 - Available response styles:
   Default, Professional, Direct, Teaching, Creative, Technical, Geek, Persuasive
 
 ### Ghost Mode (privacy)
+
 - Disables all saving
 - Applies a distinct visual theme
 - Displays a clear banner when the mode is active
 - No data is stored by the script while the mode is enabled
 
 ### Images
+
 - Image generation via Pollinations.ai
 - Smart search (Wikipedia / Wikimedia)
 - Automatic preloading
@@ -58,6 +63,7 @@ Everything works without page reloads.
 - In Ultra mode, image suggestions may appear automatically
 
 ### Rendering and usability
+
 - Readable code blocks with syntax highlighting
 - Clickable links
 - Multiple responses with tabs
@@ -89,7 +95,7 @@ Everything works without page reloads.
 
 - **Highlight.js**  
   Used for syntax highlighting of code blocks across all supported programming languages.  
-  Website: https://highlightjs.org/  
+  Website: <https://highlightjs.org/>
   License: BSD 3-Clause
 
 ---

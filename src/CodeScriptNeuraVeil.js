@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         NeuraVeil — AI Chat in Your Browser
+// @name         NeuraVeil - AI Chat in Your Browser
 // @namespace    https://github.com/DREwX-code
-// @version      1.0.9
+// @version      1.1.0
 // @description  Lightweight floating AI chat panel that works on any webpage. Free and no signup required. Uses Pollinations.ai for text and image generation, supports multiple conversations, reasoning levels, response styles, image tools, and a privacy-focused Ghost Mode.
 // @author       Dℝ∃wX
 // @match        *://*/*
@@ -370,11 +370,33 @@ License: BSD 3-Clause
                     transition: transform 0.3s ease;
                 }
                 .nv-settings.visible { transform: translateX(0); }
+                .nv-panel-close {
+                    position: absolute;
+                    top: 10px;
+                    right: 12px;
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 6px;
+                    border: none;
+                    background: transparent;
+                    color: #f87171;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                }
+                .nv-panel-close:hover {
+                    background: transparent;
+                    color: #fee2e2;
+                }
+                .nv-panel-close svg { width: 14px; height: 14px; }
                 .nv-settings-title {
                     font-size: 12px;
                     color: var(--nv-text-muted);
                     margin-bottom: 10px;
                     letter-spacing: 0.2px;
+                    padding-right: 28px;
                 }
                 .nv-settings-list {
                     flex: 1;
@@ -477,6 +499,8 @@ License: BSD 3-Clause
                 }
                 .nv-btn-icon:hover { background: rgba(255, 255, 255, 0.1); color: var(--nv-text); }
                 .nv-btn-icon svg { width: 18px; height: 18px; }
+                #nv-btn-history:hover,
+                #nv-btn-history.active { color: #60a5fa; }
                 .nv-btn-icon.ghost-active {
                     background: rgba(20, 184, 166, 0.18);
                     border: 1px solid rgba(20, 184, 166, 0.45);
@@ -501,14 +525,21 @@ License: BSD 3-Clause
                     flex-direction: column;
                     gap: 12px;
                     padding: 14px 16px 18px;
+                    overflow-y: auto;
+                    overscroll-behavior: contain;
+                    scrollbar-width: thin;
+                    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
                     transform: translateX(100%);
                     transition: transform 0.3s ease;
                 }
+                .nv-info::-webkit-scrollbar { width: 6px; }
+                .nv-info::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 10px; }
                 .nv-info.visible { transform: translateX(0); }
                 .nv-info-title {
                     font-size: 14px;
                     font-weight: 700;
                     color: var(--nv-text);
+                    padding-right: 28px;
                 }
                 .nv-info-grid {
                     display: grid;
@@ -567,6 +598,55 @@ License: BSD 3-Clause
                 }
                 .nv-info-link:hover {
                     background: rgba(255, 255, 255, 0.1);
+                }
+                .nv-info-support {
+                    margin-top: 10px;
+                    padding: 12px;
+                    border-radius: 14px;
+                    border: 1px solid rgba(139, 92, 246, 0.35);
+                    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(34, 211, 238, 0.06));
+                }
+                .nv-info-support-title {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    font-size: 12px;
+                    font-weight: 700;
+                    color: var(--nv-text);
+                }
+                .nv-info-support-title svg {
+                    width: 16px;
+                    height: 16px;
+                }
+                .nv-info-support-links {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 8px;
+                    margin-top: 8px;
+                }
+                .nv-support-link {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    padding: 7px 12px;
+                    border-radius: 999px;
+                    border: 1px solid rgba(255, 255, 255, 0.12);
+                    background: rgba(255, 255, 255, 0.04);
+                    color: var(--nv-text);
+                    text-decoration: none;
+                    font-size: 12px;
+                    transition: all 0.2s;
+                    --nv-support-accent: 139, 92, 246;
+                }
+                .nv-support-link svg {
+                    width: 15px;
+                    height: 15px;
+                }
+                .nv-support-link:hover {
+                    color: rgb(var(--nv-support-accent));
+                    border-color: rgba(var(--nv-support-accent), 0.55);
+                    background: rgba(var(--nv-support-accent), 0.12);
+                    transform: translateY(-1px);
                 }
 
                 /* Controls Row */
@@ -1012,6 +1092,31 @@ License: BSD 3-Clause
                 }
                 .nv-action-btn:hover { background: rgba(255, 255, 255, 0.1); color: var(--nv-text); }
                 .nv-action-btn svg { width: 14px; height: 14px; }
+                .nv-action-btn.nv-copy-success,
+                .nv-code-copy.nv-copy-success {
+                    color: #22c55e;
+                    background: rgba(34, 197, 94, 0.12);
+                    border-color: rgba(34, 197, 94, 0.4);
+                    transform: scale(1.03);
+                }
+                .nv-action-btn.nv-copy-success-primary,
+                .nv-code-copy.nv-copy-success-primary {
+                    color: var(--nv-primary);
+                    background: rgba(139, 92, 246, 0.14);
+                    border-color: rgba(139, 92, 246, 0.45);
+                    transform: scale(1.03);
+                }
+                .nv-action-btn.nv-copy-success svg,
+                .nv-action-btn.nv-copy-success-primary svg,
+                .nv-code-copy.nv-copy-success svg,
+                .nv-code-copy.nv-copy-success-primary svg {
+                    animation: nv-copy-pop 0.25s ease-out;
+                }
+
+                @keyframes nv-copy-pop {
+                    0% { transform: scale(0.9); opacity: 0.7; }
+                    100% { transform: scale(1); opacity: 1; }
+                }
 
                 /* Inline Loading */
                 .nv-inline-loading {
@@ -1251,17 +1356,29 @@ License: BSD 3-Clause
                 </button>
             </div>
                 <div class="nv-settings" id="nv-settings-panel">
+                    <button class="nv-panel-close" id="nv-settings-close" title="Close">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
                     <div class="nv-settings-title">Choose how NeuraVeil should respond.</div>
                     <div class="nv-settings-list" id="nv-settings-list"></div>
                 </div>
 
                 <div class="nv-info" id="nv-info-panel">
+                    <button class="nv-panel-close" id="nv-info-close" title="Close">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
                     <div class="nv-info-title">Information</div>
 
                     <div class="nv-info-grid">
                         <div class="nv-info-card variant-a">
                             <h4>Version</h4>
-                            <p>1.0.9<br>Last updated: 2025-12-31</p>
+                            <p>1.1.0<br>Last updated: 2026-01-02</p>
                         </div>
 
                         <div class="nv-info-card variant-b">
@@ -1338,6 +1455,40 @@ License: BSD 3-Clause
                                     <span>GitHub Pollinations</span>
                                 </a>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="nv-info-support">
+                        <div class="nv-info-support-title">
+                            <svg viewBox="0 0 24 24" fill="#ef4444" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20.8 4.6c-1.5-1.7-4.2-1.7-5.7 0L12 7.7 8.9 4.6c-1.6-1.7-4.2-1.7-5.7 0-1.9 2-1.8 5.1.2 7.1L12 21l8.6-9.3c2-2 2.1-5.1.2-7.1z"></path>
+                            </svg>
+                            <span>Soutenir de projet :</span>
+                        </div>
+                        <div class="nv-info-support-links">
+                            <a class="nv-support-link" href="https://greasyfork.org/en/scripts/560252-neuraveil-ai-chat-in-your-browser/feedback" target="_blank" rel="noopener noreferrer" style="--nv-support-accent: 96, 165, 250;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                <span>Feedback GreasyFork</span>
+                            </a>
+                            <a class="nv-support-link" href="https://github.com/DREwX-code/NeuraVeil" target="_blank" rel="noopener noreferrer" style="--nv-support-accent: 251, 191, 36;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="12 2 15 8.5 22 9.3 17 14.1 18.4 21 12 17.6 5.6 21 7 14.1 2 9.3 9 8.5 12 2"></polygon>
+                                </svg>
+                                <span>Stars me</span>
+                            </a>
+                            <a class="nv-support-link" href="https://github.com/DREwX-code/NeuraVeil/issues" target="_blank" rel="noopener noreferrer" style="--nv-support-accent: 239, 68, 68;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M10 4h4v2h-4z"></path>
+                                    <rect x="7" y="8" width="10" height="10" rx="2"></rect>
+                                    <path d="M5 10h2"></path>
+                                    <path d="M17 10h2"></path>
+                                    <path d="M5 14h2"></path>
+                                    <path d="M17 14h2"></path>
+                                </svg>
+                                <span>GitHub Issues</span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -1426,8 +1577,10 @@ License: BSD 3-Clause
                 statusLogo: panel.querySelector('.nv-status-logo'),
                 infoBtn: panel.querySelector('#nv-btn-info'),
                 settingsPanel: panel.querySelector('#nv-settings-panel'),
+                settingsCloseBtn: panel.querySelector('#nv-settings-close'),
                 settingsList: panel.querySelector('#nv-settings-list'),
                 infoPanel: panel.querySelector('#nv-info-panel'),
+                infoCloseBtn: panel.querySelector('#nv-info-close'),
                 historyPanel: panel.querySelector('#nv-history-panel'),
                 historyList: panel.querySelector('#nv-history-list'),
                 historySearchWrap: panel.querySelector('#nv-history-search'),
@@ -1466,6 +1619,12 @@ License: BSD 3-Clause
             this.elements.settingsBtn.addEventListener('click', () => this.toggleSettingsPanel());
             this.elements.infoBtn.addEventListener('click', () => this.toggleInfoPanel());
             this.elements.ghostBtn.addEventListener('click', () => this.toggleGhostMode());
+            if (this.elements.settingsCloseBtn) {
+                this.elements.settingsCloseBtn.addEventListener('click', () => this.closeSettingsPanel());
+            }
+            if (this.elements.infoCloseBtn) {
+                this.elements.infoCloseBtn.addEventListener('click', () => this.closeInfoPanel());
+            }
 
             this.elements.micBtn.addEventListener('click', () => this.toggleSpeech());
             this.elements.sendBtn.addEventListener('click', () => this.handleSend());
@@ -1505,9 +1664,16 @@ License: BSD 3-Clause
             if (this.state.isSettingsOpen) {
                 this.state.isHistoryOpen = false;
                 this.elements.historyPanel.classList.remove('visible');
+                this.setHistoryButtonActive(false);
                 this.state.isInfoOpen = false;
                 this.elements.infoPanel.classList.remove('visible');
             }
+        }
+
+        closeSettingsPanel() {
+            this.state.isSettingsOpen = false;
+            this.elements.settingsPanel.classList.remove('visible');
+            this.collapseHeaderExtra();
         }
 
         toggleGhostMode() {
@@ -1515,6 +1681,7 @@ License: BSD 3-Clause
             if (this.state.isGhostMode) {
                 this.state.isHistoryOpen = false;
                 this.elements.historyPanel.classList.remove('visible');
+                this.setHistoryButtonActive(false);
             }
             this.updateGhostUI();
             this.updateBodyOffset();
@@ -1527,7 +1694,20 @@ License: BSD 3-Clause
                 this.state.isHistoryOpen = false;
                 this.state.isSettingsOpen = false;
                 this.elements.historyPanel.classList.remove('visible');
+                this.setHistoryButtonActive(false);
                 this.elements.settingsPanel.classList.remove('visible');
+            }
+        }
+
+        closeInfoPanel() {
+            this.state.isInfoOpen = false;
+            this.elements.infoPanel.classList.remove('visible');
+            this.collapseHeaderExtra();
+        }
+
+        collapseHeaderExtra() {
+            if (this.elements.headerExtra.classList.contains('open')) {
+                this.toggleHeaderExtra();
             }
         }
 
@@ -1661,7 +1841,7 @@ License: BSD 3-Clause
 
 
 
-        copyTextToClipboard(text) {
+        copyTextToClipboard(text, button, variant) {
             if (!text) return;
             const fallbackCopy = () => {
                 const area = document.createElement('textarea');
@@ -1680,6 +1860,7 @@ License: BSD 3-Clause
                 navigator.clipboard.writeText(text).catch(() => { });
             }
             fallbackCopy();
+            this.triggerCopyFeedback(button, variant);
         }
 
         getStylePrompt() {
@@ -1781,6 +1962,7 @@ License: BSD 3-Clause
             const requestChatId = this.currentChatId;
             this.elements.input.value = '';
             this.autoResizeInput();
+            this.clearTrailingErrorMessage();
             this.appendMessage('user', prompt);
             this.setLoading(true, requestChatId);
 
@@ -1908,27 +2090,23 @@ License: BSD 3-Clause
         }
 
         async preloadImage(url) {
-            try {
-                const response = await fetch(url);
+            const response = await fetch(url);
 
-                // Check for specific Rate Limit headers or errors
-                // Pollinations might return 200 OK but with a rate limit image, checking headers:
-                const rateLimited = response.headers.get('x-rate-limited') === 'true' ||
-                    response.headers.get('x-error-type') === 'Too Many Requests';
+            // Check for specific Rate Limit headers or errors
+            // Pollinations might return 200 OK but with a rate limit image, checking headers:
+            const rateLimited = response.headers.get('x-rate-limited') === 'true' ||
+                response.headers.get('x-error-type') === 'Too Many Requests';
 
-                if (rateLimited) {
-                    throw new Error('Pollinations Rate Limit Reached. Please try again later.');
-                }
-
-                if (!response.ok) {
-                    throw new Error(`Image load failed: ${response.status}`);
-                }
-
-                const blob = await response.blob();
-                return URL.createObjectURL(blob);
-            } catch (error) {
-                throw error;
+            if (rateLimited) {
+                throw new Error('Pollinations Rate Limit Reached. Please try again later.');
             }
+
+            if (!response.ok) {
+                throw new Error(`Image load failed: ${response.status}`);
+            }
+
+            const blob = await response.blob();
+            return URL.createObjectURL(blob);
         }
 
         togglePanel(show) {
@@ -1946,9 +2124,16 @@ License: BSD 3-Clause
             else this.updateBodyOffset();
         }
 
+        setHistoryButtonActive(isOpen) {
+            if (this.elements.historyBtn) {
+                this.elements.historyBtn.classList.toggle('active', isOpen);
+            }
+        }
+
         toggleHistory() {
             this.state.isHistoryOpen = !this.state.isHistoryOpen;
             this.elements.historyPanel.classList.toggle('visible', this.state.isHistoryOpen);
+            this.setHistoryButtonActive(this.state.isHistoryOpen);
             if (this.state.isHistoryOpen) {
                 this.state.isSettingsOpen = false;
                 this.elements.settingsPanel.classList.remove('visible');
@@ -2066,6 +2251,7 @@ License: BSD 3-Clause
 
             this.state.isHistoryOpen = false;
             this.elements.historyPanel.classList.remove('visible');
+            this.setHistoryButtonActive(false);
             this.state.isSettingsOpen = false;
             this.elements.settingsPanel.classList.remove('visible');
             this.state.isInfoOpen = false;
@@ -2783,7 +2969,7 @@ License: BSD 3-Clause
                     const codeEl = wrapper?.querySelector('code');
                     const text = codeEl?.textContent || '';
                     if (!text.trim()) return;
-                    this.copyTextToClipboard(text);
+                    this.copyTextToClipboard(text, btn, 'primary');
                 });
             });
         }
@@ -2938,40 +3124,73 @@ License: BSD 3-Clause
         }
 
         renderToolCall(toolName, attrs) {
-            if (toolName === 'generate_image') {
-                const prompt = attrs.prompt || attrs.text || '';
-                if (!prompt) return '';
-                const encoded = encodeURIComponent(prompt);
-                const imageUrl = `https://image.pollinations.ai/prompt/${encoded}?nologo=true`;
-                return this.renderImageTool(imageUrl, prompt, 'Generated Image', prompt);
-            }
-            if (toolName === 'show_image') {
-                const rawQuery = attrs.query || attrs.search || attrs.text || '';
-                const query = this.normalizeImageQuery(rawQuery);
-                if (query) {
-                    const alt = attrs.alt || query;
-                    return this.renderImageToolWithQuery(query, alt, 'Web Image', '');
-                }
-                const rawUrl = attrs.url || '';
-                const queryFromUrl = this.extractWikipediaQueryFromUrl(rawUrl);
-                if (queryFromUrl) {
-                    const alt = attrs.alt || queryFromUrl;
-                    return this.renderImageToolWithQuery(queryFromUrl, alt, 'Web Image', '');
-                }
-                const url = this.sanitizeUrl(rawUrl);
-                if (!url) return '';
-                const alt = attrs.alt || 'Web image';
-                return this.renderImageTool(url, alt, 'Web Image', alt);
-            }
-            if (toolName === 'link') {
-                const url = this.sanitizeUrl(attrs.url || '');
-                if (!url) return '';
-                const text = attrs.text || url;
-                const safeText = this.escapeHtml(text);
-                const safeUrl = this.escapeAttr(url);
-                return `<div class="nv-tool nv-tool-link"><a href="${safeUrl}" target="_blank" rel="noopener noreferrer">${safeText}</a></div>`;
-            }
-            return '';
+            const handlers = {
+                'generate_image': () => this.handleGenerateImageTool(attrs),
+                'show_image': () => this.handleShowImageTool(attrs),
+                'link': () => this.handleLinkTool(attrs)
+            };
+
+            const handler = handlers[toolName];
+            return handler ? handler() : '';
+        }
+
+        handleGenerateImageTool(attrs) {
+            const prompt = attrs.prompt || attrs.text || '';
+            if (!prompt) return '';
+
+            const encoded = encodeURIComponent(prompt);
+            const imageUrl = `https://image.pollinations.ai/prompt/${encoded}?nologo=true`;
+            return this.renderImageTool(imageUrl, prompt, 'Generated Image', prompt);
+        }
+
+        handleShowImageTool(attrs) {
+            // Try to render from query first
+            const queryResult = this.tryRenderFromQuery(attrs);
+            if (queryResult) return queryResult;
+
+            // Try to render from Wikipedia URL
+            const wikiResult = this.tryRenderFromWikipediaUrl(attrs);
+            if (wikiResult) return wikiResult;
+
+            // Fallback to direct URL rendering
+            return this.renderFromDirectUrl(attrs);
+        }
+
+        tryRenderFromQuery(attrs) {
+            const rawQuery = attrs.query || attrs.search || attrs.text || '';
+            const query = this.normalizeImageQuery(rawQuery);
+            if (!query) return null;
+
+            const alt = attrs.alt || query;
+            return this.renderImageToolWithQuery(query, alt, 'Web Image', '');
+        }
+
+        tryRenderFromWikipediaUrl(attrs) {
+            const rawUrl = attrs.url || '';
+            const queryFromUrl = this.extractWikipediaQueryFromUrl(rawUrl);
+            if (!queryFromUrl) return null;
+
+            const alt = attrs.alt || queryFromUrl;
+            return this.renderImageToolWithQuery(queryFromUrl, alt, 'Web Image', '');
+        }
+
+        renderFromDirectUrl(attrs) {
+            const rawUrl = attrs.url || '';
+            const url = this.sanitizeUrl(rawUrl);
+            if (!url) return '';
+
+            const alt = attrs.alt || 'Web image';
+            return this.renderImageTool(url, alt, 'Web Image', alt);
+        }
+
+        handleLinkTool(attrs) {
+            const url = this.sanitizeUrl(attrs.url || '');
+            if (!url) return '';
+
+            const text = attrs.text || url;
+            const safeText = this.escapeHtml(text);
+            const safeUrl = this.escapeAttr(url);
+            return `<div class="nv-tool nv-tool-link"><a href="${safeUrl}" target="_blank" rel="noopener noreferrer">${safeText}</a></div>`;
         }
 
         renderToolMarkup(content) {
@@ -3180,7 +3399,7 @@ License: BSD 3-Clause
                             copyImgBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>`;
                             copyImgBtn.onclick = (e) => {
                                 e.stopPropagation();
-                                this.copyImageToClipboard(imageUrl);
+                                this.copyImageToClipboard(imageUrl, copyImgBtn);
                             };
                             actions.appendChild(copyImgBtn);
                         }
@@ -3192,7 +3411,7 @@ License: BSD 3-Clause
                         copyBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>`;
                         copyBtn.onclick = (e) => {
                             e.stopPropagation();
-                            this.copyToClipboard(msg.content);
+                            this.copyToClipboard(msg.content, copyBtn);
                         };
                         actions.appendChild(copyBtn);
                     }
@@ -3235,125 +3454,249 @@ License: BSD 3-Clause
         }
 
         async regenerateResponse(messageIndex) {
-            // Find the user message before this assistant response
-            if (messageIndex === 0) return;
+            const validationResult = this.validateRegenerateRequest(messageIndex);
+            if (!validationResult.isValid) return;
 
+            const { userMessage, currentMessage, userMessageIndex } = validationResult;
             const requestChatId = this.currentChatId;
+            const isImageGen = this.isImageGeneration(currentMessage);
+
+            this.initializeVersionForRegeneration(currentMessage);
+            const targetVersionIndex = currentMessage.regenTargetIndex ?? currentMessage.currentVersion ?? (currentMessage.versions.length - 1);
+
+            if (requestChatId === this.currentChatId) {
+                this.updateRegenerateUI(messageIndex, currentMessage);
+            }
+
+            try {
+                const newContent = await this.generateNewContent(
+                    isImageGen,
+                    userMessage,
+                    userMessageIndex
+                );
+
+                this.finalizeSuccessfulRegeneration(
+                    currentMessage,
+                    targetVersionIndex,
+                    newContent,
+                    requestChatId
+                );
+            } catch (error) {
+                this.handleRegenerationError(
+                    error,
+                    currentMessage,
+                    targetVersionIndex,
+                    requestChatId
+                );
+            }
+        }
+
+        validateRegenerateRequest(messageIndex) {
+            if (messageIndex === 0) {
+                return { isValid: false };
+            }
+
             const userMessageIndex = this.findPreviousUserMessageIndex(messageIndex);
-            if (userMessageIndex === -1) return;
+            if (userMessageIndex === -1) {
+                return { isValid: false };
+            }
+
             const userMessage = this.messages[userMessageIndex];
-            if (!userMessage || userMessage.role !== 'user') return;
+            if (!userMessage || userMessage.role !== 'user') {
+                return { isValid: false };
+            }
 
             const currentMessage = this.messages[messageIndex];
-            if (!currentMessage || currentMessage.role !== 'assistant') return;
+            if (!currentMessage || currentMessage.role !== 'assistant') {
+                return { isValid: false };
+            }
 
-            // Check if it was an image generation
-            const isImageGen = currentMessage.content.trim().startsWith('<img') ||
-                (currentMessage.versions && currentMessage.versions[0].trim().startsWith('<img'));
+            return {
+                isValid: true,
+                userMessage,
+                currentMessage,
+                userMessageIndex
+            };
+        }
 
-            // Initialize versions array if needed
+        isImageGeneration(message) {
+            return message.content.trim().startsWith('<img') ||
+                (message.versions && message.versions[0].trim().startsWith('<img'));
+        }
+
+        isErrorMessageContent(content) {
+            return typeof content === 'string' && content.startsWith('Error •');
+        }
+
+        clearTrailingErrorMessage() {
+            const lastIndex = this.messages.length - 1;
+            if (lastIndex < 0) return false;
+
+            const lastMessage = this.messages[lastIndex];
+            if (!lastMessage || lastMessage.role !== 'assistant' || !this.isErrorMessageContent(lastMessage.content)) {
+                return false;
+            }
+
+            this.messages.pop();
+            const messageElements = this.elements.msgContainer.querySelectorAll('.nv-message');
+            if (messageElements.length) {
+                messageElements[messageElements.length - 1].remove();
+            }
+
+            const newLastIndex = this.messages.length - 1;
+            const previousMessage = newLastIndex >= 0 ? this.messages[newLastIndex] : null;
+            if (previousMessage && previousMessage.role === 'user') {
+                this.messages.pop();
+                const remainingElements = this.elements.msgContainer.querySelectorAll('.nv-message');
+                if (remainingElements.length) {
+                    remainingElements[remainingElements.length - 1].remove();
+                }
+            }
+
+            this.saveHistory();
+            return true;
+        }
+
+        initializeVersionForRegeneration(currentMessage) {
             if (!currentMessage.versions) {
                 currentMessage.versions = [currentMessage.content];
                 currentMessage.currentVersion = 0;
             }
 
-            const targetVersionIndex = currentMessage.versions.length;
             const previousVersionIndex = currentMessage.currentVersion ?? 0;
+            let targetVersionIndex = currentMessage.versions.length;
+
+            if (this.isErrorMessageContent(currentMessage.content)) {
+                targetVersionIndex = previousVersionIndex;
+            }
+
             currentMessage.regenPrevIndex = previousVersionIndex;
             currentMessage.regenTargetIndex = targetVersionIndex;
             currentMessage.versions[targetVersionIndex] = '';
             currentMessage.currentVersion = targetVersionIndex;
             currentMessage.content = '';
             currentMessage.isLoading = true;
+        }
+
+        updateRegenerateUI(messageIndex, currentMessage) {
+            const messageElements = this.elements.msgContainer.querySelectorAll('.nv-message');
+            const messageElement = messageElements[messageIndex];
+
+            if (!messageElement) return;
+
+            const existingTabs = messageElement.querySelector('.nv-version-tabs');
+            if (currentMessage.versions && currentMessage.versions.length > 1) {
+                const tabsContainer = existingTabs || this.ensureVersionTabsContainer(messageElement);
+                this.rebuildVersionTabs(tabsContainer, currentMessage, messageIndex);
+            } else if (existingTabs) {
+                existingTabs.remove();
+            }
+            this.updateMessageContent(messageIndex);
+        }
+
+        ensureVersionTabsContainer(messageElement) {
+            let tabsContainer = messageElement.querySelector('.nv-version-tabs');
+
+            if (!tabsContainer) {
+                tabsContainer = document.createElement('div');
+                tabsContainer.className = 'nv-version-tabs';
+                messageElement.insertBefore(tabsContainer, messageElement.firstChild);
+            }
+
+            return tabsContainer;
+        }
+
+        rebuildVersionTabs(tabsContainer, currentMessage, messageIndex) {
+            tabsContainer.innerHTML = '';
+
+            currentMessage.versions.forEach((version, versionIndex) => {
+                const tab = this.createVersionTab(
+                    versionIndex,
+                    currentMessage.currentVersion,
+                    messageIndex
+                );
+                tabsContainer.appendChild(tab);
+            });
+        }
+
+        createVersionTab(versionIndex, currentVersion, messageIndex) {
+            const tab = document.createElement('button');
+            tab.className = 'nv-version-tab';
+
+            if (versionIndex === currentVersion) {
+                tab.classList.add('active');
+            }
+
+            tab.textContent = versionIndex + 1;
+            tab.onclick = (e) => {
+                e.stopPropagation();
+                this.switchVersion(messageIndex, versionIndex);
+            };
+
+            return tab;
+        }
+
+        async generateNewContent(isImageGen, userMessage, userMessageIndex) {
+            if (isImageGen) {
+                return await this.regenerateImageContent(userMessage);
+            } else {
+                return await this.regenerateTextContent(userMessage, userMessageIndex);
+            }
+        }
+
+        async regenerateImageContent(userMessage) {
+            const encoded = encodeURIComponent(userMessage.content);
+            const isPrivate = this.state.isGhostMode ? '&private=true' : '';
+            const seed = Math.floor(Math.random() * 100000);
+            const imageUrl = `https://image.pollinations.ai/prompt/${encoded}?nologo=true${isPrivate}&seed=${seed}`;
+
+            // Preload via Fetch/Blob
+            await this.preloadImage(imageUrl);
+
+            // Store the original URL in history (not blob: to prevent broken images on reload)
+            return `<img src="${imageUrl}" alt="${userMessage.content}" style="max-width: 100%; border-radius: 8px; margin-top: 4px;">`;
+        }
+
+        async regenerateTextContent(userMessage, userMessageIndex) {
+            const historyBeforeMessage = this.messages.slice(0, userMessageIndex + 1);
+            const reasoningLevel = await this.getSelectedReasoningLevel(userMessage.content);
+            return await this.fetchAIResponse(userMessage.content, historyBeforeMessage, reasoningLevel);
+        }
+
+        finalizeSuccessfulRegeneration(currentMessage, targetVersionIndex, newContent, requestChatId) {
+            currentMessage.versions[targetVersionIndex] = newContent;
+            currentMessage.currentVersion = targetVersionIndex;
+            currentMessage.content = newContent;
+            currentMessage.isLoading = false;
+
+            this.cleanupRegenerationMetadata(currentMessage);
+            this.saveHistory();
 
             if (requestChatId === this.currentChatId) {
-                // Add new tab to UI without full re-render
-                const messageElements = this.elements.msgContainer.querySelectorAll('.nv-message');
-                const messageElement = messageElements[messageIndex];
-                if (messageElement) {
-                    let tabsContainer = messageElement.querySelector('.nv-version-tabs');
-                    if (!tabsContainer) {
-                        tabsContainer = document.createElement('div');
-                        tabsContainer.className = 'nv-version-tabs';
-                        messageElement.insertBefore(tabsContainer, messageElement.firstChild);
-                    }
-
-                    // Rebuild tabs, keep current version active unless pending active
-                    tabsContainer.innerHTML = '';
-                    currentMessage.versions.forEach((version, versionIndex) => {
-                        const tab = document.createElement('button');
-                        tab.className = 'nv-version-tab';
-                        if (versionIndex === currentMessage.currentVersion) tab.classList.add('active');
-                        tab.textContent = versionIndex + 1;
-                        tab.onclick = (e) => {
-                            e.stopPropagation();
-                            this.switchVersion(messageIndex, versionIndex);
-                        };
-                        tabsContainer.appendChild(tab);
-                    });
-                }
-
-                // Show loading in content area
-                this.updateMessageContent(messageIndex);
+                this.renderMessages(true);
             }
+        }
 
-            try {
-                let newContent;
-                if (isImageGen) {
-                    // Regenerate image
-                    const encoded = encodeURIComponent(userMessage.content);
-                    const isPrivate = this.state.isGhostMode ? '&private=true' : '';
-                    const seed = Math.floor(Math.random() * 100000);
-                    const imageUrl = `https://image.pollinations.ai/prompt/${encoded}?nologo=true${isPrivate}&seed=${seed}`;
+        handleRegenerationError(error, currentMessage, targetVersionIndex, requestChatId) {
+            console.error('NeuraVeil Regenerate Error:', error);
 
-                    // Preload via Fetch/Blob
-                    const blobUrl = await this.preloadImage(imageUrl);
+            const errorMsg = 'Error • ' + (error.message || 'Unable to regenerate.');
+            currentMessage.versions[targetVersionIndex] = errorMsg;
+            currentMessage.currentVersion = targetVersionIndex;
+            currentMessage.content = errorMsg;
+            currentMessage.isLoading = false;
 
-                    // Store the original URL in history (not blob: to prevent broken images on reload)
-                    newContent = `<img src="${imageUrl}" alt="${userMessage.content}" style="max-width: 100%; border-radius: 8px; margin-top: 4px;">`;
-                    // We rely on browser cache instead of swapping to blob:
-                    // - renderMessages(true) rebuilds the DOM
-                    // - blob URLs would be lost in history
-                    // - original URL is safer for persistence
-                } else {
-                    // Regenerate text response
-                    const historyBeforeMessage = this.messages.slice(0, userMessageIndex + 1);
-                    const reasoningLevel = await this.getSelectedReasoningLevel(userMessage.content);
-                    newContent = await this.fetchAIResponse(userMessage.content, historyBeforeMessage, reasoningLevel);
-                }
+            this.cleanupRegenerationMetadata(currentMessage);
+            this.saveHistory();
 
-                // Update the version with actual content
-                currentMessage.versions[targetVersionIndex] = newContent;
-                currentMessage.currentVersion = targetVersionIndex;
-                currentMessage.content = newContent;
-                currentMessage.isLoading = false;
-
-                // Save and update content
-                this.saveHistory();
-                delete currentMessage.regenPrevIndex;
-                delete currentMessage.regenTargetIndex;
-                if (requestChatId === this.currentChatId) {
-                    this.renderMessages(true);
-                }
-            } catch (error) {
-                console.error('NeuraVeil Regenerate Error:', error);
-
-                // Show error in the new version slot instead of appending a new message
-                const errorMsg = 'Error • ' + (error.message || 'Unable to regenerate.');
-                currentMessage.versions[targetVersionIndex] = errorMsg;
-                currentMessage.currentVersion = targetVersionIndex;
-                currentMessage.content = errorMsg;
-                currentMessage.isLoading = false;
-
-                delete currentMessage.regenPrevIndex;
-                delete currentMessage.regenTargetIndex;
-
-                this.saveHistory();
-
-                if (requestChatId === this.currentChatId) {
-                    this.renderMessages(true);
-                }
+            if (requestChatId === this.currentChatId) {
+                this.renderMessages(true);
             }
+        }
+
+        cleanupRegenerationMetadata(currentMessage) {
+            delete currentMessage.regenPrevIndex;
+            delete currentMessage.regenTargetIndex;
         }
 
         switchVersion(messageIndex, versionIndex) {
@@ -3366,16 +3709,38 @@ License: BSD 3-Clause
             this.updateMessageContent(messageIndex);
         }
 
-        copyToClipboard(text) {
+        triggerCopyFeedback(button, variant = 'success') {
+            if (!button) return;
+            if (!button.dataset.nvCopyOriginal) {
+                button.dataset.nvCopyOriginal = button.innerHTML;
+            }
+            if (button._nvCopyTimeout) {
+                clearTimeout(button._nvCopyTimeout);
+            }
+
+            button.classList.remove('nv-copy-success', 'nv-copy-success-primary');
+            const className = variant === 'primary' ? 'nv-copy-success-primary' : 'nv-copy-success';
+            button.classList.add(className);
+            button.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+
+            button._nvCopyTimeout = setTimeout(() => {
+                button.classList.remove(className);
+                if (button.dataset.nvCopyOriginal) {
+                    button.innerHTML = button.dataset.nvCopyOriginal;
+                }
+                button._nvCopyTimeout = null;
+            }, 900);
+        }
+
+        copyToClipboard(text, button) {
             navigator.clipboard.writeText(text).then(() => {
-                this.showToast('Copied to clipboard');
+                this.triggerCopyFeedback(button);
             }).catch(err => {
                 console.error('Failed to copy:', err);
-                this.showToast('Failed to copy');
             });
         }
 
-        async copyImageToClipboard(imageUrl) {
+        async copyImageToClipboard(imageUrl, button) {
             try {
                 // Use DOM image to handle CORS and conversions
                 const img = new Image();
@@ -3400,10 +3765,9 @@ License: BSD 3-Clause
 
                 const item = new ClipboardItem({ 'image/png': blob });
                 await navigator.clipboard.write([item]);
-                this.showToast('Image copied to clipboard');
+                this.triggerCopyFeedback(button);
             } catch (err) {
                 console.error('Failed to copy image:', err);
-                this.showToast('Failed to copy image');
             }
         }
 
@@ -3514,7 +3878,7 @@ License: BSD 3-Clause
                         copyImgBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>`;
                         copyImgBtn.onclick = (e) => {
                             e.stopPropagation();
-                            this.copyImageToClipboard(imageUrl);
+                            this.copyImageToClipboard(imageUrl, copyImgBtn);
                         };
                         actions.appendChild(copyImgBtn);
                     }
@@ -3526,7 +3890,7 @@ License: BSD 3-Clause
                     copyBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>`;
                     copyBtn.onclick = (e) => {
                         e.stopPropagation();
-                        this.copyToClipboard(content);
+                        this.copyToClipboard(content, copyBtn);
                     };
                     actions.appendChild(copyBtn);
                 }
@@ -3607,6 +3971,7 @@ License: BSD 3-Clause
             const requestChatId = this.currentChatId;
             this.elements.input.value = '';
             this.autoResizeInput();
+            this.clearTrailingErrorMessage();
             this.appendMessage('user', text);
             this.setLoading(true, requestChatId);
 
@@ -3784,33 +4149,29 @@ License: BSD 3-Clause
             };
 
             const makeRequest = async (retryCount = 0) => {
-                try {
-                    const response = await fetch(url, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
 
-                    if (response.status === 429) {
-                        if (retryCount < 2) {
-                            // Exponential backoff: 2s, 4s
-                            const delay = 2000 * Math.pow(2, retryCount);
-                            console.warn(`NeuraVeil: Rate limit hit, retrying in ${delay}ms...`);
-                            await new Promise(r => setTimeout(r, delay));
-                            return makeRequest(retryCount + 1);
-                        }
-                        throw new Error('Server is currently overloaded (Too Many Requests). Please try again in a moment.');
+                if (response.status === 429) {
+                    if (retryCount < 2) {
+                        // Exponential backoff: 2s, 4s
+                        const delay = 2000 * Math.pow(2, retryCount);
+                        console.warn(`NeuraVeil: Rate limit hit, retrying in ${delay}ms...`);
+                        await new Promise(r => setTimeout(r, delay));
+                        return makeRequest(retryCount + 1);
                     }
-
-                    if (!response.ok) throw new Error(`Network error: ${response.status}`);
-                    const data = await response.json();
-                    const content = data.choices?.[0]?.message?.content || 'No response.';
-                    let cleaned = this.sanitizeAssistantText(content);
-                    cleaned = this.maybeInjectUltraImage(userText, reasoningLevel, cleaned);
-                    return cleaned;
-                } catch (e) {
-                    throw e;
+                    throw new Error('Server is currently overloaded (Too Many Requests). Please try again in a moment.');
                 }
+
+                if (!response.ok) throw new Error(`Network error: ${response.status}`);
+                const data = await response.json();
+                const content = data.choices?.[0]?.message?.content || 'No response.';
+                let cleaned = this.sanitizeAssistantText(content);
+                cleaned = this.maybeInjectUltraImage(userText, reasoningLevel, cleaned);
+                return cleaned;
             };
 
             return await makeRequest();
@@ -3878,7 +4239,6 @@ License: BSD 3-Clause
             this.recognition.onerror = (event) => {
                 console.error('Speech recognition error', event.error);
                 if (event.error === 'not-allowed') {
-                    this.showToast('Microphone access denied');
                     this.stopRecording();
                 }
             };

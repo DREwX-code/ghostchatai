@@ -37,6 +37,7 @@ Everything works without page reloads.
 - Sidebar mode (side panel) on the right
 - Instant open and close
 - Quick close with the Escape key
+- A dedicated section to reset all settings and conversations when needed
 
 ### Conversations
 
@@ -44,6 +45,7 @@ Everything works without page reloads.
 - Load, rename, or delete a conversation
 - Clear the entire history
 - Start a new chat at any time
+- It is recommended to regularly remove unused conversations to avoid unnecessary storage usage
 
 ### Reasoning and tone
 
@@ -54,17 +56,18 @@ Everything works without page reloads.
 
 ### Ghost Mode (privacy)
 
-- Disables all saving
+- Disables all saving (no conversations are stored)
 - Applies a distinct visual theme
 - Displays a clear banner when the mode is active
 - No data is stored by the script while the mode is enabled
+- Image generation in this mode uses Pollinations.ai exclusively with the <code>&amp;private=true</code> parameter
 
 ### Images
 
 - Image generation via Pollinations.ai
-- Smart search (Wikipedia / Wikimedia)
+- Web image search via Openverse, including image source, author, and license information
+- Openverse image actions: copy image, download image, and copy image link
 - Automatic preloading
-- Built-in download button
 - In Ultra mode, image suggestions may appear automatically
 
 ### Rendering and usability
@@ -89,6 +92,10 @@ Everything works without page reloads.
 - Ghost Mode: no data is saved by the script
 - Auto and Ultra modes may automatically suggest relevant images
 - Uses Pollinations.ai, a free, fast, and performant API
+- Uses CSP-safe network requests to remain functional on strict websites (e.g. GitHub)
+- On websites with strict Content Security Policies (such as GitHub),
+  external Highlight.js theme styles may be blocked by the browser.
+  This does not affect core functionality. A fix is currently being worked on.
 
 ## Third-Party Libraries
 

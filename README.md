@@ -33,11 +33,14 @@ Everything works without page reloads.
 
 ### Interface
 
-- Discreet bubble in the bottom-right corner
-- Sidebar mode (side panel) on the right
+- Discreet floating chat bubble
+- Floating chat icon is draggable (long press + drag), with position saved
+- Clicking the chat icon toggles the chat open or closed
+- Dynamic chat bubble positioning to stay within the viewport
+- Sidebar mode (side panel), movable to the left or right with position saved
 - Instant open and close
 - Quick close with the Escape key
-- A dedicated section to reset all settings and conversations when needed
+- A dedicated “Danger Zone” to reset all settings and conversations
 
 ### Conversations
 
@@ -78,6 +81,7 @@ Everything works without page reloads.
 - Quick actions: copy, regenerate, download
 - Typing indicator
 - Protection against bugs when switching conversations during a request
+- Keyboard input is fully isolated when typing in the chat, preventing website shortcuts from interfering
 
 ## Header controls
 
